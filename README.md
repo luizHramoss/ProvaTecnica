@@ -108,6 +108,7 @@ Para facilitar o acesso à API, você pode usar o seguinte usuário admin:
 }
 
 Certifique-se de que este usuário admin esteja criado no banco de dados com a senha apropriada.
+```
 
 Contribuição
 Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
