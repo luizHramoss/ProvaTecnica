@@ -1,68 +1,116 @@
-# CodeIgniter 4 Application Starter
+# Projeto CodeIgniter 4 com MySQL e JWT
 
-## What is CodeIgniter?
+Este é um projeto de exemplo utilizando CodeIgniter 4, MySQL como banco de dados e JWT para autenticação. Ele fornece uma API para gerenciar clientes, produtos e pedidos.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Funcionalidades
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+- **Clientes**: CRUD de clientes com validação de CPF/CNPJ.
+- **Produtos**: CRUD de produtos.
+- **Pedidos**: CRUD de pedidos, incluindo itens de pedidos e cálculo automático do valor total.
+- **Autenticação**: Utiliza JWT para autenticação.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## Pré-requisitos
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+- PHP 8.1 ou superior
+- Composer
+- MySQL
 
-## Installation & updates
+## Instalação
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+1. Instale as dependências via Composer:
+    ```
+    composer install
+    ```
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+2. Crie um arquivo `.env` a partir do arquivo de exemplo:
+    ```
+    cp env .env
+    ```
 
-## Setup
+3. Configure o arquivo `.env` com suas credenciais de banco de dados e JWT:
+    ```env
+    CI_ENVIRONMENT = production
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+    #--------------------------------------------------------------------
+    # DATABASE
+    #--------------------------------------------------------------------
 
-## Important Change with index.php
+    database.default.hostname = localhost
+    database.default.database = seu_banco_de_dados
+    database.default.username = seu_usuario
+    database.default.password = sua_senha
+    database.default.DBDriver = MySQLi
+    database.default.DBPrefix =
+    database.default.port = 3306
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+    #--------------------------------------------------------------------
+    # JWT Configuration
+    #--------------------------------------------------------------------
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+    JWT_SECRET = "sua_secret_key"
+    ```
 
-**Please** read the user guide for a better explanation of how CI4 works!
+4. Execute as migrações para criar as tabelas no banco de dados:
+    ```
+    php spark migrate
+    ```
 
-## Repository Management
+5. Inicie o servidor de desenvolvimento:
+    ```
+    php spark serve
+    ```
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+## Uso
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+### Endpoints da API
 
-## Server Requirements
+- **Clientes**
+  - `GET /api/clientes`: Retorna a lista de clientes.
+  - `GET /api/clientes/{id}`: Retorna os detalhes de um cliente específico.
+  - `POST /api/clientes`: Cria um novo cliente.
+  - `PUT /api/clientes/{id}`: Atualiza os dados de um cliente.
+  - `DELETE /api/clientes/{id}`: Deleta um cliente.
 
-PHP version 8.1 or higher is required, with the following extensions installed:
+- **Produtos**
+  - `GET /api/produtos`: Retorna a lista de produtos.
+  - `GET /api/produtos/{id}`: Retorna os detalhes de um produto específico.
+  - `POST /api/produtos`: Cria um novo produto.
+  - `PUT /api/produtos/{id}`: Atualiza os dados de um produto.
+  - `DELETE /api/produtos/{id}`: Deleta um produto.
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- **Pedidos**
+  - `GET /api/pedidos`: Retorna a lista de pedidos.
+  - `GET /api/pedidos/{id}`: Retorna os detalhes de um pedido específico.
+  - `POST /api/pedidos`: Cria um novo pedido.
+  - `PUT /api/pedidos/{id}`: Atualiza os dados de um pedido.
+  - `DELETE /api/pedidos/{id}`: Deleta um pedido.
 
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - If you are still using PHP 7.4 or 8.0, you should upgrade immediately.
-> - The end of life date for PHP 8.1 will be December 31, 2025.
+### Autenticação
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+Para autenticação, use o endpoint de login para obter um token JWT:
+  - `POST /api/login`: Autentica um usuário e retorna um token JWT.
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+Exemplo de corpo de requisição para login:
+```json
+{
+    "cpf_cnpj": "12345678901",
+    "password": "sua_senha"
+}
+
+Use o token JWT recebido para autenticar as requisições subsequentes, adicionando o cabeçalho Authorization: Bearer {seu_token}.
+
+Usuário Admin
+Para facilitar o acesso à API, você pode usar o seguinte usuário admin:
+
+{
+    "cpf_cnpj": "12345678901",
+    "password": "Admin@123"
+}
+
+Certifique-se de que este usuário admin esteja criado no banco de dados com a senha apropriada.
+
+Contribuição
+Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+Licença
+Este projeto está licenciado sob a MIT License.
