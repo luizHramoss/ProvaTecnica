@@ -96,12 +96,12 @@ Exemplo de corpo de requisição para login:
     "cpf_cnpj": "12345678901",
     "password": "sua_senha"
 }
-
+```
 Use o token JWT recebido para autenticar as requisições subsequentes, adicionando o cabeçalho Authorization: Bearer {seu_token}.
 
 Usuário Admin
 Para facilitar o acesso à API, você pode usar o seguinte usuário admin:
-
+```json
 {
     "cpf_cnpj": "12345678901",
     "password": "Admin@123"
