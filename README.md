@@ -33,7 +33,8 @@ Este é um projeto de exemplo utilizando CodeIgniter 4, MySQL como banco de dado
 
 4. Configure o arquivo `.env` com suas credenciais de banco de dados e JWT:
     ```env
-    CI_ENVIRONMENT = production
+
+    # app.baseURL = 'http://dev.api-prova-tecnica'
 
     #--------------------------------------------------------------------
     # DATABASE
