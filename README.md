@@ -17,17 +17,21 @@ Este é um projeto de exemplo utilizando CodeIgniter 4, MySQL como banco de dado
 
 ## Instalação
 
-1. Instale as dependências via Composer:
+1. Entre na master
+    ```
+    git checkout master
+    ```
+2. Instale as dependências via Composer:
     ```
     composer install
     ```
 
-2. Crie um arquivo `.env` a partir do arquivo de exemplo:
+3. Crie um arquivo `.env` a partir do arquivo de exemplo:
     ```
     cp env .env
     ```
 
-3. Configure o arquivo `.env` com suas credenciais de banco de dados e JWT:
+4. Configure o arquivo `.env` com suas credenciais de banco de dados e JWT:
     ```env
     CI_ENVIRONMENT = production
 
@@ -50,12 +54,12 @@ Este é um projeto de exemplo utilizando CodeIgniter 4, MySQL como banco de dado
     JWT_SECRET = "sua_secret_key"
     ```
 
-4. Execute as migrações para criar as tabelas no banco de dados:
+5. Execute as migrações para criar as tabelas no banco de dados:
     ```
     php spark migrate
     ```
 
-5. Inicie o servidor de desenvolvimento:
+6. Inicie o servidor de desenvolvimento:
     ```
     php spark serve
     ```
